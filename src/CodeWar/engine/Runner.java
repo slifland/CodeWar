@@ -52,6 +52,7 @@ public class Runner
 
     //increments one turn
     protected void update(){
+        //System.out.println(robotPlayers.size());
         for(RobotPlayer robotPlayer : robotPlayers){
             if(robotPlayer.alive()){
                 RobotUser tempRobotUser = new RobotUser(robotPlayer.getRobot(), world);
@@ -92,6 +93,8 @@ public class Runner
         }
         //these should already be added to the map
         robotPlayers.addAll(toAdd);
+        toAdd.clear();
+        toRemove.clear();
         pastTurns.add(new GameWorld(world));
         turn++;
     }
