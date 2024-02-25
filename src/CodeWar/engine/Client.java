@@ -120,7 +120,7 @@ public class Client extends Application
                 MapTile correspondingMapTile = gw.gameWorld[i][j];
                 if(correspondingMapTile.robotInfoOnTile != null){
                     RobotInfo r = correspondingMapTile.robotInfoOnTile;
-                    int team = r.playerOwner;
+                    int team = r.getPlayerOwner();
                     if(team == 1){
                         switch(r.robotType){
                             default -> System.out.println("oops!");
