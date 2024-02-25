@@ -11,6 +11,9 @@ public class Tile extends StackPane
     int row;
     int col;
 
+    boolean hasRobot = false;
+    boolean hasIron = false;
+    boolean hasSilicon = false;
     Image imageSource;
     ImageView image;
     public Tile(int row, int col, boolean passable)
@@ -24,7 +27,8 @@ public class Tile extends StackPane
         if(passable)
         {
             imageSource = ImageSources.ground;
-        }else
+        }
+        else
         {
             imageSource = ImageSources.mountains;
         }

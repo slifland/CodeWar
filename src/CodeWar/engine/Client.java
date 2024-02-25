@@ -79,6 +79,52 @@ public class Client extends Application
         stage.show();
     }
 
+    public void showTurn(GameWorld gw){
+        for(int i = 0; i < tiles.length; i++){
+            for(int j = 0; j < tiles[i].length; j++){
+                MapTile correspondingMapTile = gw.gameWorld[i][j];
+                if(!correspondingMapTile.passable){
+                    tiles[i][j].imageSource = ImageSources.mountains;
+                }
+                else if(correspondingMapTile.robotInfoOnTile != null){
+                    RobotInfo r = correspondingMapTile.robotInfoOnTile;
+                    int team = r.playerOwner;
+                    if(team == 1){
+                        switch(r.robotType){
+                            default -> System.out.println("oops!");
+                            case GameConstants.SCOUT -> tiles[i][j].imageSource = ImageSources.scout0;
+                            case GameConstants.INFANTRY -> tiles[i][j].imageSource = ImageSources.infantry0;
+                            case GameConstants.MINER -> tiles[i][j].imageSource = ImageSources.miner0;
+                            case GameConstants.HQ -> tiles[i][j].imageSource = ImageSources.HQ0;
+                            //case GameConstants.SUPERBOT -> tiles[i][j].imageSource = ImageSources.scout0;
+                        }
+                    }
+                    else if(team == 2){
+                        switch(r.robotType){
+                            default -> System.out.println("oops!");
+                            case GameConstants.SCOUT -> tiles[i][j].imageSource = ImageSources.scout1;
+                            case GameConstants.INFANTRY -> tiles[i][j].imageSource = ImageSources.infantry1;
+                            case GameConstants.MINER -> tiles[i][j].imageSource = ImageSources.miner1;
+                            case GameConstants.HQ -> tiles[i][j].imageSource = ImageSources.HQ1;
+                            //case GameConstants.SUPERBOT -> tiles[i][j].imageSource = ImageSources.scout0;
+                        }
+                    }
+                }
+                else{
+                    if(correspondingMapTile.numIron > 0){
+                        tiles[i][j].imageSource = ImageSources.ironNoMine;
+                    }
+                    else if(correspondingMapTile.numSilicon > 0){
+                        tiles[i][j].imageSource = ImageSources.siliconMine;
+                    }
+                    else{
+                        tiles[i][j].imageSource = ImageSources.ground;
+                    }
+                }
+            }
+        }
+    }
+
     public static void main(String[] args)
     {
         launch();
