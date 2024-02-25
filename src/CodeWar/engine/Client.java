@@ -91,7 +91,7 @@ public class Client extends Application
 
         Slider turnSlider = new Slider();
         turnSlider.setMin(0);
-        turnSlider.setMax(finishedGame.size());
+        turnSlider.setMax(finishedGame.size() - 1);
         turnSlider.setMinWidth(750);
         turnSlider.setBlockIncrement(1);
 
@@ -104,8 +104,8 @@ public class Client extends Application
                     public void changed(ObservableValue<? extends Number >
                                                 observable, Number oldValue, Number newValue)
                     {
-                        turnText.setText("Turn: " + newValue.intValue() + "/" + finishedGame.size());
-                        showTurn(finishedGame.get(newValue.intValue()));
+                        turnText.setText("Turn: " + newValue.intValue() + "/" + (finishedGame.size()-1));
+                        showTurn(runner.pastTurns.get(newValue.intValue()));
                     }
                 });
 
@@ -121,6 +121,7 @@ public class Client extends Application
     }
 
     public void showTurn(GameWorld gw){
+        int numScouts = 0;
         ironTrackerTeam1.setText("Team 1 Iron: " + gw.teamA.getIron());
         siliconTrackerTeam1.setText("Team 1 Silicon: " + gw.teamA.getSilicon());
         ironTrackerTeam2.setText("Team 2 Iron: " + gw.teamB.getIron());
@@ -128,13 +129,17 @@ public class Client extends Application
         for(int i = 0; i < tiles.length; i++){
             for(int j = 0; j < tiles[i].length; j++){
                 MapTile correspondingMapTile = gw.gameWorld[i][j];
-                if(correspondingMapTile.robotInfoOnTile != null){
+                if(correspondingMapTile.robotInfoOnTile.playerOwner != -1){
                     RobotInfo r = correspondingMapTile.robotInfoOnTile;
                     int team = r.getPlayerOwner();
                     if(team == 1){
                         switch(r.robotType){
                             default -> System.out.println("oops!");
-                            case GameConstants.SCOUT -> tiles[i][j].updateTile(ImageSources.scout0);
+                            case GameConstants.SCOUT ->
+                            {
+                                tiles[i][j].updateTile(ImageSources.scout0);
+                                numScouts++;
+                            }
                             case GameConstants.INFANTRY -> tiles[i][j].updateTile(ImageSources.infantry0);
                             case GameConstants.MINER -> tiles[i][j].updateTile( ImageSources.miner0);
                             case GameConstants.HQ -> tiles[i][j].updateTile(ImageSources.HQ0);
@@ -163,6 +168,7 @@ public class Client extends Application
                         tiles[i][j].updateTile(ImageSources.ground);
                     }
                 }
+                System.out.println(numScouts);
             }
         }
     }
