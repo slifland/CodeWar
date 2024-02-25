@@ -15,7 +15,7 @@ public class Player2 extends Player
             case GameConstants.HQ:
                 ArrayList<MapTile> adjacents = user.getNearbyMapTiles(2);
                 for(MapTile mapTile : adjacents){
-                    if(user.canSpawn(GameConstants.MINER, mapTile.getPoint())){
+                    if(user.canSpawn(GameConstants.MINER, mapTile.getPoint()) && user.getIron() > 70){
                         user.spawn(GameConstants.MINER, mapTile.getPoint());
                     }
                 }
@@ -52,13 +52,16 @@ public class Player2 extends Player
                 Direction dir = d[rand.nextInt(d.length - 1)];
                 if (dir != Direction.NONE) {
                     if (user.canMove(dir)) user.move(dir);
-                }
-                ArrayList<RobotInfo> nearbyEnemies = user.getNearbyRobots(GameConstants.VISION_RADIUS[user.getRobotType()], 1);
-                for (RobotInfo enemy : nearbyEnemies) {
-                    if (user.canAttack(enemy.getPosition())) {
-                        user.attack(enemy.getPosition());
+                    if(user.canBuildCitadel(user.getPosition().pointInDirection(dir))){
+                        user.buildCitadel(user.getPosition().pointInDirection(dir));
                     }
                 }
+//                ArrayList<RobotInfo> nearbyEnemies = user.getNearbyRobots(GameConstants.VISION_RADIUS[user.getRobotType()], 1);
+//                for (RobotInfo enemy : nearbyEnemies) {
+//                    if (user.canAttack(enemy.getPosition())) {
+//                        user.attack(enemy.getPosition());
+//                    }
+//                }
                 break;
         }
     }

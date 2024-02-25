@@ -18,4 +18,6 @@ public class ImageSources
     public static Image HQ1 = new Image("CodeWar/images/HQ1.png");
     public static Image superBot0 = new Image("CodeWar/images/superBot0.png");
     public static Image superBot1 = new Image("CodeWar/images/superBot1.png");
+    public static Image citadel0 = new Image("CodeWar/images/citadel.png");
+    public static Image citadel1 = new Image("CodeWar/images/citadel1.png");
 }

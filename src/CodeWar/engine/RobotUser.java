@@ -1,5 +1,6 @@
 package CodeWar.engine;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 import static java.lang.Math.ceil;
@@ -37,7 +38,7 @@ public class RobotUser
     //returns if a robot can move
     public boolean canMove(Direction dir){
         if(dir == Direction.NONE) return false;
-        if(robotType == GameConstants.HQ) return false;
+        if(robotType == GameConstants.HQ || robotType == GameConstants.CITADEL) return false;
         Point destination = position.pointInDirection(dir);
         if(destination == null || !onMap(destination)) return false;
         MapTile destinationTile = destination.pointAsMapTile(world);
@@ -47,7 +48,7 @@ public class RobotUser
     //tries to move, returns true if successful, returns false if fails (should throw an error, you need to check!)
     public boolean move(Direction dir) {
         if(dir == Direction.NONE) return false;
-        if(robotType == GameConstants.HQ) return false;
+        if(robotType == GameConstants.HQ || robotType == GameConstants.CITADEL) return false;
         Point destination = position.pointInDirection(dir);
         if(destination == null || !onMap(destination)) return false;
         MapTile destinationTile = destination.pointAsMapTile(world);
@@ -86,9 +87,84 @@ public class RobotUser
         }
         return true;
     }
+    public boolean canBuildCitadel(Point p){
+        if(robotType == GameConstants.HQ || robotType == GameConstants.CITADEL) return false;
+        if(p == null || !onMap(p)) return false;
+        if(!p.isAdjacent(position)) return false;
+        MapTile destinationTile = p.pointAsMapTile(world);
+        if(destinationTile == null || destinationTile.robotInfoOnTile != null || destinationTile.numIron != 0 || destinationTile.numSilicon != 0) return false;
+        if(actionCooldown >= 10) return false;
+        int robotIndex = GameConstants.CITADEL;
+        int curIron;
+        int curSilicon;
+        int reqIron = GameConstants.IRON_COST[robotIndex];
+        int reqSilicon = GameConstants.SILICON_COST[robotIndex];
+        switch(robotInfo.playerOwner){
+            case 1:
+                curIron = world.teamA.getIron();
+                curSilicon = world.teamA.getSilicon();
+                break;
+            case 2:
+                curIron = world.teamB.getIron();
+                curSilicon = world.teamB.getSilicon();
+                break;
+            default:
+                return false;
+        }
+        if(curIron < reqIron) return false;
+        if(curSilicon < reqSilicon) return false;
+        return true;
+    }
+
+    public boolean buildCitadel(Point p){
+        if(robotType == GameConstants.HQ || robotType == GameConstants.CITADEL) return false;
+        if(p == null || !onMap(p)) return false;
+        if(!p.isAdjacent(position)) return false;
+        MapTile destinationTile = p.pointAsMapTile(world);
+        if(destinationTile == null || destinationTile.robotInfoOnTile != null || (destinationTile.numIron != 0 || destinationTile.numSilicon != 0)) return false;
+        if(actionCooldown >= 10) return false;
+        int robotIndex = GameConstants.CITADEL;
+        int curIron;
+        int curSilicon;
+        int reqIron = GameConstants.IRON_COST[robotIndex];
+        int reqSilicon = GameConstants.SILICON_COST[robotIndex];
+        switch(robotInfo.playerOwner){
+            case 1:
+                curIron = world.teamA.getIron();
+                curSilicon = world.teamA.getSilicon();
+                break;
+            case 2:
+                curIron = world.teamB.getIron();
+                curSilicon = world.teamB.getSilicon();
+                break;
+            default:
+                return false;
+        }
+        if(curIron < reqIron) return false;
+        if(curSilicon < reqSilicon) return false;
+        RobotInfo temp = new RobotInfo(GameConstants.CITADEL, robotInfo.playerOwner, p, true, world);
+        destinationTile.robotInfoOnTile = temp;
+        spawned = temp;
+        actionCooldown += GameConstants.BUILD_COOLDOWN;
+        robotInfo.cooldownAction += GameConstants.BUILD_COOLDOWN;
+        switch(robotInfo.playerOwner){
+            case 1:
+                world.teamA.setIron(curIron - reqIron);
+                world.teamA.setSilicon(curSilicon - reqSilicon);
+                break;
+            case 2:
+                world.teamB.setIron(curIron - reqIron);
+                world.teamB.setSilicon(curSilicon - reqSilicon);
+                break;
+            default:
+                return false;
+        }
+        return true;
+    }
+
     //returns whether you can mine a point
     public boolean canMine(Point p) {
-        if(robotType == GameConstants.HQ) return false;
+        if(robotType == GameConstants.HQ || robotType == GameConstants.CITADEL) return false;
         if(p == null || !onMap(p)) return false;
         if(!p.isAdjacent(position)) return false;
         MapTile destinationTile = p.pointAsMapTile(world);
@@ -98,7 +174,7 @@ public class RobotUser
     }
     //tries to mine a point, returns whether successful
     public boolean mine(Point p) {
-        if(robotType == GameConstants.HQ) return false;
+        if(robotType == GameConstants.HQ || robotType == GameConstants.CITADEL) return false;
         if(p == null || !onMap(p)) return false;
         if(!p.isAdjacent(position)) return false;
         MapTile destinationTile = p.pointAsMapTile(world);
@@ -399,4 +475,21 @@ public class RobotUser
         return p.x >= 0 && p.x < world.sizeX && p.y >= 0 && p.y < world.sizeY;
     }
 
+    public int getIron(){
+        switch(robotInfo.playerOwner){
+            case 1: return world.teamA.getIron();
+            case 2: return world.teamB.getIron();
+            default: break;
+        }
+        return 0;
+    }
+
+    public int getSilicon(){
+        switch(robotInfo.playerOwner){
+            case 1: return world.teamA.getSilicon();
+            case 2: return world.teamB.getSilicon();
+            default: break;
+        }
+        return 0;
+    }
 }

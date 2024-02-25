@@ -144,6 +144,7 @@ public class Client extends Application
                             case GameConstants.MINER -> tiles[i][j].updateTile( ImageSources.miner0);
                             case GameConstants.HQ -> tiles[i][j].updateTile(ImageSources.HQ0);
                             case GameConstants.SUPERBOT -> tiles[i][j].updateTile(ImageSources.superBot0);
+                            case GameConstants.CITADEL -> tiles[i][j].updateTile(ImageSources.citadel0);
                         }
                     }
                     else if(team == 2){
@@ -154,6 +155,7 @@ public class Client extends Application
                             case GameConstants.MINER -> tiles[i][j].updateTile(ImageSources.miner1);
                             case GameConstants.HQ -> tiles[i][j].updateTile(ImageSources.HQ1);
                             case GameConstants.SUPERBOT -> tiles[i][j].updateTile(ImageSources.superBot1);
+                            case GameConstants.CITADEL -> tiles[i][j].updateTile(ImageSources.citadel1);
                         }
                     }
                 }
@@ -168,7 +170,7 @@ public class Client extends Application
                         tiles[i][j].updateTile(ImageSources.ground);
                     }
                 }
-                System.out.println(numScouts);
+                //System.out.println(numScouts);
             }
         }
     }
