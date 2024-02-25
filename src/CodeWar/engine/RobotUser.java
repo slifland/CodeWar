@@ -47,6 +47,17 @@ public class RobotUser
     }
     //tries to move, returns true if successful, returns false if fails (should throw an error, you need to check!)
     public boolean move(Direction dir) {
+        if(tryMove(dir)) return true;
+        else{
+            actionCooldown += 40;
+            moveCooldown += 40;
+            robotInfo.cooldownMove += 40;
+            robotInfo.cooldownAction += 40;
+            return false;
+        }
+    }
+
+    public boolean tryMove(Direction dir){
         if(dir == Direction.NONE) return false;
         if(robotType == GameConstants.HQ || robotType == GameConstants.CITADEL) return false;
         Point destination = position.pointInDirection(dir);
@@ -72,8 +83,8 @@ public class RobotUser
         if(destinationTile == null || destinationTile.robotInfoOnTile == null || destinationTile.robotInfoOnTile.playerOwner == robotInfo.playerOwner || robotInfo.cooldownAction > 10) return false;
         return true;
     }
-    //tries to attack, returns whether successful
-    public boolean attack(Point p) {
+
+    public boolean tryAttack(Point p){
         if(robotType == GameConstants.HQ) return false;
         if(p == null || !onMap(p)) return false;
         if(position.distanceSquaredTo(p) > GameConstants.VISION_RADIUS[robotType]) return false;
@@ -86,6 +97,18 @@ public class RobotUser
             destinationTile.robotInfoOnTile = null;
         }
         return true;
+    }
+
+    //tries to attack, returns whether successful
+    public boolean attack(Point p) {
+        if(tryAttack(p)) return true;
+        else{
+            actionCooldown += 40;
+            moveCooldown += 40;
+            robotInfo.cooldownAction += 40;
+            robotInfo.cooldownMove += 40;
+            return false;
+        }
     }
     public boolean canBuildCitadel(Point p){
         if(robotType == GameConstants.HQ || robotType == GameConstants.CITADEL) return false;
@@ -116,7 +139,7 @@ public class RobotUser
         return true;
     }
 
-    public boolean buildCitadel(Point p){
+    public boolean tryBuildCitadel(Point p){
         if(robotType == GameConstants.HQ || robotType == GameConstants.CITADEL) return false;
         if(p == null || !onMap(p)) return false;
         if(!p.isAdjacent(position)) return false;
@@ -162,6 +185,17 @@ public class RobotUser
         return true;
     }
 
+    public boolean buildCitadel(Point p){
+        if(tryBuildCitadel(p)) return true;
+        else{
+            actionCooldown += 40;
+            robotInfo.cooldownAction += 40;
+            moveCooldown += 40;
+            robotInfo.cooldownMove += 40;
+            return false;
+        }
+    }
+
     //returns whether you can mine a point
     public boolean canMine(Point p) {
         if(robotType == GameConstants.HQ || robotType == GameConstants.CITADEL) return false;
@@ -172,8 +206,21 @@ public class RobotUser
         if(actionCooldown >= 10) return false;
         return true;
     }
-    //tries to mine a point, returns whether successful
+
+    //calls tryMine, and sets cooldowns plus 40 if fails
     public boolean mine(Point p) {
+        if(tryMine(p)) return true;
+        else{
+            actionCooldown += 40;
+            moveCooldown += 40;
+            robotInfo.cooldownAction += 40;
+            robotInfo.cooldownMove += 40;
+            return false;
+        }
+    }
+
+    //tries to mine a point, returns whether successful
+    public boolean tryMine(Point p){
         if(robotType == GameConstants.HQ || robotType == GameConstants.CITADEL) return false;
         if(p == null || !onMap(p)) return false;
         if(!p.isAdjacent(position)) return false;
@@ -239,6 +286,17 @@ public class RobotUser
     }
     //tries to spawn a robot, returns whether successful
     public boolean spawn(int robotIndex, Point p) {
+        if(trySpawn(robotIndex, p)) return true;
+        else{
+            actionCooldown += 40;
+            moveCooldown += 40;
+            robotInfo.cooldownAction += 40;
+            robotInfo.cooldownMove += 40;
+            return false;
+        }
+    }
+
+    public boolean trySpawn(int robotIndex, Point p){
         if(robotInfo.cooldownAction >= 10) return false;
         if(robotType != GameConstants.HQ) return false;
         if( p == null || !p.isAdjacent(p) || !onMap(p)) return false;
