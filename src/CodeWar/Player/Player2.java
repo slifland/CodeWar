@@ -10,7 +10,8 @@ public class Player2 extends Player
         super(id);
     }
     public void run(RobotUser user){
-        int type = user.getRobotType();
+        return;
+        /*int type = user.getRobotType();
         switch(type){
             case GameConstants.HQ:
                 ArrayList<MapTile> adjacents = user.getNearbyMapTiles(2);
@@ -64,6 +65,9 @@ public class Player2 extends Player
 //                }
                 break;
         }
+        /*
+
+         */
     }
     public int getID(){
         return 2;

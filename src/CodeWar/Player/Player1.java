@@ -42,17 +42,15 @@ public class Player1 extends Player
             if(!nearbyEnemies.isEmpty()){
                 //Since we know we can see at least one enemy, let's attack them
                 if (user.canAttack(nearbyEnemies.get(0).getPosition())) {
+                    System.out.println(nearbyEnemies.get(0).getHealth());
                     user.attack(nearbyEnemies.get(0).getPosition());
+                    System.out.println(nearbyEnemies.get(0).getHealth());
+                    System.out.println(nearbyEnemies.get(0).getRobotType());
                 }
                 //In addition, if we can see the enemy HQ, let's stay near it so we can keep attacking
                 if(nearbyEnemies.get(0).getRobotType() == GameConstants.HQ) {
-                    System.out.println(nearbyEnemies.get(0).getPosition().x + nearbyEnemies.get(0).getPosition().y);
-                    //System.out.println(nearbyEnemies.get(0).get)
                     Direction dir = user.getPosition().directionTo(nearbyEnemies.get(0).getPosition());
                     return;
-                    //Again, make sure you check you can take an action before taking it
-//                    if (user.canMove(dir))
-//                        user.move(dir);
                 }
             }
             //Can't see any enemies, lets try to move towards any minerals we can see
@@ -77,7 +75,7 @@ public class Player1 extends Player
             }
         }
         //That's all! Clearly a very simple bot, with a basic foundation but lot's to build on. Consider exploring other kinds of units, and more advanced
-        //strategies for fighting enemies or mining resources. Once you can beat this basic reference player, move on to our next level of reference opponent!
+        //strategies for fighting enemies or mining resources. Once you can beat this basic reference player, keep trying and finding new ways to improve against your own bot!
     }
     public int getID(){
         return 1;

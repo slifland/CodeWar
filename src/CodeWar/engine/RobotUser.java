@@ -267,6 +267,7 @@ public class RobotUser
         if( p == null || !p.isAdjacent(p) || !onMap(p)) return false;
         MapTile destinationTile = p.pointAsMapTile(world);
         if(!destinationTile.passable || destinationTile.robotInfoOnTile != null) return false;
+        if(p.x == robotInfo.getPosition().x && p.y == robotInfo.getPosition().y) return false;
         int curIron;
         int curSilicon;
         int reqIron = GameConstants.IRON_COST[robotIndex];
