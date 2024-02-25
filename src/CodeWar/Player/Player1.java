@@ -46,6 +46,8 @@ public class Player1 extends Player
                 }
                 //In addition, if we can see the enemy HQ, let's stay near it so we can keep attacking
                 if(nearbyEnemies.get(0).getRobotType() == GameConstants.HQ) {
+                    System.out.println(nearbyEnemies.get(0).getPosition().x + nearbyEnemies.get(0).getPosition().y);
+                    //System.out.println(nearbyEnemies.get(0).get)
                     Direction dir = user.getPosition().directionTo(nearbyEnemies.get(0).getPosition());
                     return;
                     //Again, make sure you check you can take an action before taking it

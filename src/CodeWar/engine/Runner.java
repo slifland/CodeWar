@@ -70,7 +70,7 @@ public class Runner
                     toRemove.add(robotPlayer);
                 }
                 if(tempRobotUser.spawned != null){
-                    switch(robotPlayer.getPlayerID()){
+                    switch(tempRobotUser.spawned.playerOwner){
                         case 1:
                             toAdd.add(new RobotPlayer(tempRobotUser.spawned, new Player1(1)));
                             break;
