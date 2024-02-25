@@ -22,6 +22,14 @@ public class Player1 extends Player
                     }
                 }
                 break;
+            case GameConstants.SCOUT:
+                Direction[] d = Direction.values();
+                for(Direction dir : d){
+                    if(user.canMove(dir)){
+                        user.move(dir);
+                    }
+                }
+                break;
         }
     }
     public int getID(){

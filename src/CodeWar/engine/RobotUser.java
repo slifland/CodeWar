@@ -50,7 +50,7 @@ public class RobotUser
         if(destination == null || !onMap(destination)) return false;
         MapTile destinationTile = destination.pointAsMapTile(world);
         if(destinationTile == null || destinationTile.robotInfoOnTile != null || !destinationTile.passable) return false;
-        if(moveCooldown < 10) return false;
+        if(moveCooldown >= 10) return false;
         robotInfo.cooldownMove += GameConstants.COOLDOWN_MOVE[robotType];
         moveCooldown = robotInfo.cooldownMove;
         MapTile curTile = position.pointAsMapTile(world);
@@ -154,12 +154,14 @@ public class RobotUser
             default:
                 return false;
         }
+        if(robotInfo.cooldownAction >= 10) return false;
         if(curIron < reqIron) return false;
         if(curSilicon < reqSilicon) return false;
         return true;
     }
     //tries to spawn a robot, returns whether successful
     public boolean spawn(int robotIndex, Point p) {
+        if(robotInfo.cooldownAction >= 10) return false;
         if(robotType != GameConstants.HQ) return false;
         if( p == null || !p.isAdjacent(p) || !onMap(p)) return false;
         MapTile destinationTile = p.pointAsMapTile(world);
@@ -196,7 +198,6 @@ public class RobotUser
             default:
                 return false;
         }
-
         destinationTile.robotInfoOnTile = spawned;
         actionCooldown += 10;
         robotInfo.cooldownAction = actionCooldown;
