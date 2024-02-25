@@ -145,11 +145,7 @@ public class Client extends Application
                     if(team == 1){
                         switch(r.robotType){
                             default -> System.out.println("oops!");
-                            case GameConstants.SCOUT ->
-                            {
-                                tiles[i][j].updateTile(ImageSources.scout0);
-                                numScouts++;
-                            }
+                            case GameConstants.SCOUT -> tiles[i][j].updateTile(ImageSources.scout0);
                             case GameConstants.INFANTRY -> tiles[i][j].updateTile(ImageSources.infantry0);
                             case GameConstants.MINER -> tiles[i][j].updateTile( ImageSources.miner0);
                             case GameConstants.HQ -> tiles[i][j].updateTile(ImageSources.HQ0);
@@ -176,11 +172,14 @@ public class Client extends Application
                     else if(correspondingMapTile.numSilicon > 0){
                         tiles[i][j].updateTile(ImageSources.siliconMine);
                     }
-                    else{
+                    else if(correspondingMapTile.passable){
                         tiles[i][j].updateTile(ImageSources.ground);
+                    }else
+                    {
+                        System.out.println("here");
+                        tiles[i][j].updateTile(ImageSources.mountains);
                     }
                 }
-                //System.out.println(numScouts);
             }
         }
     }

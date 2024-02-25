@@ -26,6 +26,12 @@ public class GameConstants
 
     public static final int MAP_SIZE = 30;
 
+    public static final int NUM_OBSTACLES = 100;
+    public static final int MAX_HQS = 3;
+    public static final int MAX_WELLS = 3;
+    public static final int WELL_IRON = 40;
+    public static final int WELL_SILICON = 40;
+
 
 
 }

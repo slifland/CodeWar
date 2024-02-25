@@ -92,4 +92,20 @@ public class Point
         }
         return Math.abs(p.x-x) + Math.abs(p.y-y) <= 2;
     }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        Point other = (Point) obj;
+        return other.x == x && other.y == y;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Point{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
+    }
 }

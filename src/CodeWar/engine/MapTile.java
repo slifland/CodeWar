@@ -37,6 +37,14 @@ public class MapTile
         this.point = new Point(x, y);
     }
 
+    protected MapTile(int x, int y, boolean isPassable){
+        this.numIron = 0;
+        this.numSilicon = 0;
+        this.passable = isPassable;
+        this.robotInfoOnTile = null;
+        this.point = new Point(x, y);
+    }
+
     public Point getPoint(){
         return this.point;
     }
