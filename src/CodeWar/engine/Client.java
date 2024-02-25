@@ -165,7 +165,11 @@ public class Client extends Application
                             case GameConstants.SCOUT -> tiles[i][j].updateTile(ImageSources.scout0);
                             case GameConstants.INFANTRY -> tiles[i][j].updateTile(ImageSources.infantry0);
                             case GameConstants.MINER -> tiles[i][j].updateTile( ImageSources.miner0);
-                            case GameConstants.HQ -> tiles[i][j].updateTile(ImageSources.HQ0);
+                            case GameConstants.HQ ->
+                            {
+                                tiles[i][j].updateTile(ImageSources.HQ0);
+                                System.out.println(i + " " + j);
+                            }
                             case GameConstants.SUPERBOT -> tiles[i][j].updateTile(ImageSources.superBot0);
                             case GameConstants.CITADEL -> tiles[i][j].updateTile(ImageSources.citadel0);
                         }
