@@ -2,6 +2,8 @@ package CodeWar.engine;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -73,11 +75,8 @@ public class Client extends Application
         root.getChildren().add(winnerLabel);
 
         Button playButton = new Button("Play");
-        playButton.relocate(120,800);
+        playButton.relocate(120,600);
         root.getChildren().add(playButton);
-
-
-
 
         for(int i = 0; i < size; i++)
         {
@@ -125,14 +124,35 @@ public class Client extends Application
                     public void changed(ObservableValue<? extends Number >
                                                 observable, Number oldValue, Number newValue)
                     {
-                        turnText.setText("Turn: " + newValue.intValue() + "/" + (finishedGame.size()-1));
+                        turnText.setText("Turn: " + (newValue.intValue() + 1) + "/" + (finishedGame.size()));
                         showTurn(runner.pastTurns.get(newValue.intValue()));
                     }
                 });
 
+        playButton.setOnAction(actionEvent ->
+        {
+            int turnCount = 0;
+            while (turnCount < finishedGame.size())
+            {
+                showTurn(finishedGame.get(turnCount));
+                pauseExecution(250);
+            }
+        });
+
         showTurn(finishedGame.get(0));
         return root;
     }
+
+    private void pauseExecution(int millis)
+    {
+        long startTime = System.currentTimeMillis();
+        long currentTime = startTime;
+        do
+        {
+           currentTime =  System.currentTimeMillis();
+        }while(currentTime < startTime + millis);
+    }
+
     @Override
     public void start(Stage stage) {
         Scene scene = new Scene(createContent());
@@ -186,7 +206,6 @@ public class Client extends Application
                         tiles[i][j].updateTile(ImageSources.ground);
                     }else
                     {
-                        System.out.println("here");
                         tiles[i][j].updateTile(ImageSources.mountains);
                     }
                 }

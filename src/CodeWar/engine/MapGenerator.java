@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class MapGenerator
 {
-    static Random rng = new Random(673476);
+    static Random rng = new Random(89);
     public static void generateGameWorld(Runner runner)
     {
         int mapSymmetry;
@@ -158,27 +158,27 @@ public class MapGenerator
                     case 0:
                         symmetryPoint = new Point(randomPoint.y, randomPoint.x);
                         runner.world.gameWorld[symmetryPoint.x][symmetryPoint.y].robotInfoOnTile = new RobotInfo(GameConstants.HQ, 2,
-                                new Point(0, GameConstants.MAP_SIZE - 1), false, runner.world);
+                                new Point(symmetryPoint.x, GameConstants.MAP_SIZE - symmetryPoint.y - 1), false, runner.world);
                         runner.world.gameWorld[symmetryPoint.x][symmetryPoint.y].passable = true;
                         alreadyBeenHQs.add(symmetryPoint);
                         break;
                     case 1:
                         symmetryPoint = new Point(randomPoint.x, GameConstants.MAP_SIZE - randomPoint.y - 1);
                         runner.world.gameWorld[symmetryPoint.x][symmetryPoint.y].robotInfoOnTile = new RobotInfo(GameConstants.HQ, 2,
-                                new Point(0, GameConstants.MAP_SIZE - 1), false, runner.world);
+                                new Point(symmetryPoint.x, GameConstants.MAP_SIZE - symmetryPoint.y - 1), false, runner.world);
                         runner.world.gameWorld[symmetryPoint.x][symmetryPoint.y].passable = true;
                         alreadyBeenHQs.add(symmetryPoint);
                         break;
                     case 2:
                         symmetryPoint = new Point(GameConstants.MAP_SIZE - randomPoint.x - 1, randomPoint.y);
                         runner.world.gameWorld[symmetryPoint.x][symmetryPoint.y].robotInfoOnTile = new RobotInfo(GameConstants.HQ, 2,
-                                new Point(0, GameConstants.MAP_SIZE - 1), false, runner.world);
+                                new Point(symmetryPoint.x, GameConstants.MAP_SIZE - symmetryPoint.y - 1), false, runner.world);
                         runner.world.gameWorld[symmetryPoint.x][symmetryPoint.y].passable = true;
                         alreadyBeenHQs.add(symmetryPoint);
                         break;
                 }
                 runner.world.gameWorld[randomPoint.x][randomPoint.y].robotInfoOnTile = new RobotInfo(GameConstants.HQ, 1,
-                        new Point(0, GameConstants.MAP_SIZE - 1), false, runner.world);
+                        new Point(randomPoint.x, GameConstants.MAP_SIZE - 1 - randomPoint.y), false, runner.world);
                 alreadyBeenHQs.add(randomPoint);
             }
         }
