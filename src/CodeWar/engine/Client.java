@@ -74,9 +74,6 @@ public class Client extends Application
         winnerLabel.relocate(15,300);
         root.getChildren().add(winnerLabel);
 
-        Button playButton = new Button("Play");
-        playButton.relocate(120,600);
-        root.getChildren().add(playButton);
 
         for(int i = 0; i < size; i++)
         {
@@ -128,16 +125,6 @@ public class Client extends Application
                         showTurn(runner.pastTurns.get(newValue.intValue()));
                     }
                 });
-
-        playButton.setOnAction(actionEvent ->
-        {
-            int turnCount = 0;
-            while (turnCount < finishedGame.size())
-            {
-                showTurn(finishedGame.get(turnCount));
-                pauseExecution(250);
-            }
-        });
 
         showTurn(finishedGame.get(0));
         return root;
