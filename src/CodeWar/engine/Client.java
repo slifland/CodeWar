@@ -121,10 +121,10 @@ public class Client extends Application
     }
 
     public void showTurn(GameWorld gw){
-        ironTrackerTeam1 = new Text("Team 1 Iron: " + gw.teamA.getIron());
-        siliconTrackerTeam1 = new Text("Team 1 Silicon: " + gw.teamA.getSilicon());
-        ironTrackerTeam2 = new Text("Team 2 Iron: " + gw.teamB.getIron());
-        siliconTrackerTeam2 = new Text("Team 2 Silicon: " + gw.teamB.getSilicon());
+        ironTrackerTeam1.setText("Team 1 Iron: " + gw.teamA.getIron());
+        siliconTrackerTeam1.setText("Team 1 Silicon: " + gw.teamA.getSilicon());
+        ironTrackerTeam2.setText("Team 2 Iron: " + gw.teamB.getIron());
+        siliconTrackerTeam2.setText("Team 2 Silicon: " + gw.teamB.getSilicon());
         for(int i = 0; i < tiles.length; i++){
             for(int j = 0; j < tiles[i].length; j++){
                 MapTile correspondingMapTile = gw.gameWorld[i][j];
