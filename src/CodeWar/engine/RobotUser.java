@@ -53,9 +53,9 @@ public class RobotUser
         if(moveCooldown >= 10) return false;
         robotInfo.cooldownMove += GameConstants.COOLDOWN_MOVE[robotType];
         moveCooldown = robotInfo.cooldownMove;
+        destinationTile.robotInfoOnTile = robotInfo;
         MapTile curTile = position.pointAsMapTile(world);
         curTile.robotInfoOnTile = null;
-        destinationTile.robotInfoOnTile = robotInfo;
         robotInfo.position = destination;
         position = robotInfo.position;
         return true;

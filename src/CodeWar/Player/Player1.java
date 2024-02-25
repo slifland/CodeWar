@@ -4,6 +4,7 @@ import CodeWar.engine.*;
 import CodeWar.engine.RobotUser;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 
 public class Player1 extends Player
@@ -23,11 +24,11 @@ public class Player1 extends Player
                 }
                 break;
             case GameConstants.SCOUT:
+                Random rand = new Random();
                 Direction[] d = Direction.values();
-                for(Direction dir : d){
-                    if(user.canMove(dir)){
-                        user.move(dir);
-                    }
+                Direction dir = d[rand.nextInt(d.length - 1)];
+                if(dir != Direction.NONE){
+                    if(user.canMove(dir)) user.move(dir);
                 }
                 break;
         }
