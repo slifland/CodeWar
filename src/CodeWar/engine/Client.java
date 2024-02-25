@@ -26,6 +26,10 @@ public class Client extends Application
     public Tile[][] tiles;
     public int size;
     private Group tileGroup = new Group();
+    public Text ironTrackerTeam1;
+    public Text siliconTrackerTeam1;
+    public Text ironTrackerTeam2;
+    public Text siliconTrackerTeam2;
 
     public Parent createContent()
     {
@@ -45,10 +49,10 @@ public class Client extends Application
         codeWarLabel.relocate(50,0);
         root.getChildren().add(codeWarLabel);
 
-        Text ironTrackerTeam1 = new Text("Team 1 Iron: " + gameWorld.teamA.getIron());
-        Text siliconTrackerTeam1 = new Text("Team 1 Silicon: " + gameWorld.teamA.getSilicon());
-        Text ironTrackerTeam2 = new Text("Team 2 Iron: " + gameWorld.teamA.getIron());
-        Text siliconTrackerTeam2 = new Text("Team 2 Silicon: " + gameWorld.teamB.getSilicon());
+        ironTrackerTeam1 = new Text("Team 1 Iron: " + gameWorld.teamA.getIron());
+        siliconTrackerTeam1 = new Text("Team 1 Silicon: " + gameWorld.teamA.getSilicon());
+        ironTrackerTeam2 = new Text("Team 2 Iron: " + gameWorld.teamB.getIron());
+        siliconTrackerTeam2 = new Text("Team 2 Silicon: " + gameWorld.teamB.getSilicon());
         ironTrackerTeam1.setFont(Font.font("Verdana", 20));
         ironTrackerTeam2.setFont(Font.font("Verdana", 20));
         siliconTrackerTeam1.setFont(Font.font("Verdana", 20));
@@ -61,6 +65,7 @@ public class Client extends Application
         root.getChildren().add(ironTrackerTeam2);
         root.getChildren().add(siliconTrackerTeam1);
         root.getChildren().add(siliconTrackerTeam2);
+
 
 
         for(int i = 0; i < size; i++)
@@ -88,6 +93,7 @@ public class Client extends Application
         turnSlider.setMin(0);
         turnSlider.setMax(finishedGame.size());
         turnSlider.setMinWidth(750);
+        turnSlider.setBlockIncrement(1);
 
         root.getChildren().add(turnSlider);
         turnSlider.relocate(270,765);
@@ -103,7 +109,7 @@ public class Client extends Application
                     }
                 });
 
-
+        showTurn(finishedGame.get(0));
         return root;
     }
     @Override
@@ -115,6 +121,10 @@ public class Client extends Application
     }
 
     public void showTurn(GameWorld gw){
+        ironTrackerTeam1 = new Text("Team 1 Iron: " + gw.teamA.getIron());
+        siliconTrackerTeam1 = new Text("Team 1 Silicon: " + gw.teamA.getSilicon());
+        ironTrackerTeam2 = new Text("Team 2 Iron: " + gw.teamB.getIron());
+        siliconTrackerTeam2 = new Text("Team 2 Silicon: " + gw.teamB.getSilicon());
         for(int i = 0; i < tiles.length; i++){
             for(int j = 0; j < tiles[i].length; j++){
                 MapTile correspondingMapTile = gw.gameWorld[i][j];
