@@ -32,7 +32,7 @@ public class Runner
         robotPlayers = new ArrayList<>();
         for(int i = 0; i < world.sizeX; i++){
             for(int k = 0; k < world.sizeY; k++){
-                if(world.gameWorld[i][k].robotInfoOnTile.robotType == GameConstants.HQ){
+                if(world.gameWorld[i][k].robotInfoOnTile != null && world.gameWorld[i][k].robotInfoOnTile.robotType == GameConstants.HQ){
                     switch(world.gameWorld[i][k].robotInfoOnTile.playerOwner){
                         case 1:
                             robotPlayers.add(new RobotPlayer(world.gameWorld[i][k].robotInfoOnTile, new Player1(1)));
