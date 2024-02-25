@@ -14,7 +14,7 @@ public class GameConstants
     public static final int[] ATTACK = {7, 14, 3, 21, 0, 8};
     public static final int[] IRON_COST = {10, 20, 20, 20, Integer.MAX_VALUE, 50};
     public static final int[] SILICON_COST = {0, 5, 0, 15, Integer.MAX_VALUE, 0};
-    public static final int[] HEALTH = {50, 80, 50, 100, 400, 200};
+    public static final int[] HEALTH = {40, 60, 40, 80, 200, 100};
     public static final int[] COOLDOWN_MOVE = {10, 20, 15, 25, 0, 0};
     public static final int[] COOLDOWN_ATTACK = {25, 15, 25, 15, 20};
     public static final int[] COOLDOWN_MINE = {25, 25, 10, 25, 0, 0};

@@ -10,7 +10,7 @@ public class RobotUser
 {
     private RobotInfo robotInfo;
     protected RobotInfo spawned;
-    GameWorld world;
+    protected GameWorld world;
     protected int health;
     protected int moveCooldown;
     protected int actionCooldown;
@@ -92,7 +92,9 @@ public class RobotUser
         if(destinationTile == null || destinationTile.robotInfoOnTile == null || destinationTile.robotInfoOnTile.playerOwner == robotInfo.playerOwner) return false;
         robotInfo.cooldownAction += GameConstants.COOLDOWN_ATTACK[robotType];
         actionCooldown = robotInfo.cooldownAction;
+        System.out.println(destinationTile.robotInfoOnTile.health);
         destinationTile.robotInfoOnTile.health -= GameConstants.ATTACK[robotType];
+        System.out.println(destinationTile.robotInfoOnTile.health);
         if(destinationTile.robotInfoOnTile.health <= 0){
             destinationTile.robotInfoOnTile = null;
         }
@@ -101,7 +103,9 @@ public class RobotUser
 
     //tries to attack, returns whether successful
     public boolean attack(Point p) {
-        if(tryAttack(p)) return true;
+        if(tryAttack(p)){
+            return true;
+        }
         else{
             actionCooldown += 40;
             moveCooldown += 40;
@@ -115,7 +119,7 @@ public class RobotUser
         if(p == null || !onMap(p)) return false;
         if(!p.isAdjacent(position)) return false;
         MapTile destinationTile = p.pointAsMapTile(world);
-        if(destinationTile == null || destinationTile.robotInfoOnTile != null || destinationTile.numIron != 0 || destinationTile.numSilicon != 0) return false;
+        if(destinationTile == null || !destinationTile.passable || destinationTile.robotInfoOnTile != null || destinationTile.numIron != 0 || destinationTile.numSilicon != 0) return false;
         if(actionCooldown >= 10) return false;
         int robotIndex = GameConstants.CITADEL;
         int curIron;
@@ -144,7 +148,7 @@ public class RobotUser
         if(p == null || !onMap(p)) return false;
         if(!p.isAdjacent(position)) return false;
         MapTile destinationTile = p.pointAsMapTile(world);
-        if(destinationTile == null || destinationTile.robotInfoOnTile != null || (destinationTile.numIron != 0 || destinationTile.numSilicon != 0)) return false;
+        if(destinationTile == null || destinationTile.robotInfoOnTile != null || !destinationTile.passable || (destinationTile.numIron != 0 || destinationTile.numSilicon != 0)) return false;
         if(actionCooldown >= 10) return false;
         int robotIndex = GameConstants.CITADEL;
         int curIron;

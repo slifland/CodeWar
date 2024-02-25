@@ -36,9 +36,46 @@ public class Player1 extends Player
                 }
             }
         }
+        //Now, let's consider what to do with our scouts: we may want to explore randomly, but if we see resources or an enemy, we may as well mine/attack
         else if(type == GameConstants.SCOUT){
-
+            ArrayList<MapTile> nearbyDeposits = user.getNearbyDeposits(GameConstants.VISION_RADIUS[GameConstants.SCOUT]);
+            if(!nearbyEnemies.isEmpty()){
+                //Since we know we can see at least one enemy, let's attack them
+                if (user.canAttack(nearbyEnemies.get(0).getPosition())) {
+                    user.attack(nearbyEnemies.get(0).getPosition());
+                }
+                //In addition, if we can see the enemy HQ, let's stay near it so we can keep attacking
+                if(nearbyEnemies.get(0).getRobotType() == GameConstants.HQ) {
+                    Direction dir = user.getPosition().directionTo(nearbyEnemies.get(0).getPosition());
+                    return;
+                    //Again, make sure you check you can take an action before taking it
+//                    if (user.canMove(dir))
+//                        user.move(dir);
+                }
+            }
+            //Can't see any enemies, lets try to move towards any minerals we can see
+            else if(!nearbyDeposits.isEmpty()){
+                Direction dir = user.getPosition().directionTo(nearbyDeposits.get(0).getPoint());
+                //Again, make sure you check you can take an action before taking it
+                if (user.canMove(dir))
+                    user.move(dir);
+                //We can try and mine this deposit as well
+                if(user.canMine(nearbyDeposits.get(0).getPoint())){
+                    user.mine(nearbyDeposits.get(0).getPoint());
+                }
+            }
+            //If we still haven't moved, we should just move randomly to explore the map
+            if(user.getMoveCooldown() < 10){
+                Random rand = new Random();
+                Direction[] d = Direction.values();
+                Direction dir = d[rand.nextInt(d.length - 1)];
+                if (dir != Direction.NONE) {
+                    if (user.canMove(dir)) user.move(dir);
+                }
+            }
         }
+        //That's all! Clearly a very simple bot, with a basic foundation but lot's to build on. Consider exploring other kinds of units, and more advanced
+        //strategies for fighting enemies or mining resources. Once you can beat this basic reference player, move on to our next level of reference opponent!
     }
     public int getID(){
         return 1;
