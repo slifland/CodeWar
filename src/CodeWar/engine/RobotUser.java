@@ -36,6 +36,7 @@ public class RobotUser
 
     //returns if a robot can move
     public boolean canMove(Direction dir){
+        if(dir == Direction.NONE) return false;
         if(robotType == GameConstants.HQ) return false;
         Point destination = position.pointInDirection(dir);
         if(destination == null || !onMap(destination)) return false;
@@ -45,6 +46,7 @@ public class RobotUser
     }
     //tries to move, returns true if successful, returns false if fails (should throw an error, you need to check!)
     public boolean move(Direction dir) {
+        if(dir == Direction.NONE) return false;
         if(robotType == GameConstants.HQ) return false;
         Point destination = position.pointInDirection(dir);
         if(destination == null || !onMap(destination)) return false;
@@ -91,7 +93,7 @@ public class RobotUser
         if(!p.isAdjacent(position)) return false;
         MapTile destinationTile = p.pointAsMapTile(world);
         if(destinationTile == null || destinationTile.robotInfoOnTile != null || (destinationTile.numIron == 0 && destinationTile.numSilicon == 0)) return false;
-        if(actionCooldown <= 10) return false;
+        if(actionCooldown >= 10) return false;
         return true;
     }
     //tries to mine a point, returns whether successful
@@ -101,7 +103,7 @@ public class RobotUser
         if(!p.isAdjacent(position)) return false;
         MapTile destinationTile = p.pointAsMapTile(world);
         if(destinationTile == null || destinationTile.robotInfoOnTile != null || (destinationTile.numIron == 0 && destinationTile.numSilicon == 0)) return false;
-        if(actionCooldown <= 10) return false;
+        if(actionCooldown >= 10) return false;
         actionCooldown += GameConstants.COOLDOWN_MINE[robotType];
         robotInfo.cooldownAction += GameConstants.COOLDOWN_MINE[robotType];
         if(destinationTile.numSilicon > 0){

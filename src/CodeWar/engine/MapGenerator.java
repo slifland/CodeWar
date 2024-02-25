@@ -18,5 +18,6 @@ public class MapGenerator
                 new Point(0, GameConstants.MAP_SIZE - 1), false, runner.world);
         runner.world.gameWorld[29][29].robotInfoOnTile = new RobotInfo(GameConstants.HQ,2,
                 new Point(29, 0), false, runner.world);
+        runner.world.gameWorld[25][25].numIron = 10;
     }
 }
