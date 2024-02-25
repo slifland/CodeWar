@@ -72,6 +72,10 @@ public class Client extends Application
             }
         }
 
+        Text turnText = new Text("Turn: 0");
+        turnText.setFont(Font.font("Verdana", 20));
+        turnText.relocate(100, 760);
+        root.getChildren().add(turnText);
 
         while(runner.active())
         {
@@ -85,11 +89,6 @@ public class Client extends Application
         turnSlider.setMax(finishedGame.size());
         turnSlider.setMinWidth(750);
 
-        Text turnText = new Text("Turn: " + (int) turnSlider.getValue());
-        turnText.setFont(Font.font("Verdana", 20));
-        turnText.relocate(160, 760);
-        root.getChildren().add(turnText);
-
         root.getChildren().add(turnSlider);
         turnSlider.relocate(270,765);
 
@@ -99,7 +98,7 @@ public class Client extends Application
                     public void changed(ObservableValue<? extends Number >
                                                 observable, Number oldValue, Number newValue)
                     {
-                        turnText.setText("Turn: " + newValue.intValue());
+                        turnText.setText("Turn: " + newValue.intValue() + "/" + finishedGame.size());
                         showTurn(finishedGame.get(newValue.intValue()));
                     }
                 });
@@ -119,42 +118,39 @@ public class Client extends Application
         for(int i = 0; i < tiles.length; i++){
             for(int j = 0; j < tiles[i].length; j++){
                 MapTile correspondingMapTile = gw.gameWorld[i][j];
-                if(!correspondingMapTile.passable){
-                    tiles[i][j].imageSource = ImageSources.mountains;
-                }
-                else if(correspondingMapTile.robotInfoOnTile != null){
+                if(correspondingMapTile.robotInfoOnTile != null){
                     RobotInfo r = correspondingMapTile.robotInfoOnTile;
                     int team = r.playerOwner;
                     if(team == 1){
                         switch(r.robotType){
                             default -> System.out.println("oops!");
-                            case GameConstants.SCOUT -> tiles[i][j].imageSource = ImageSources.scout0;
-                            case GameConstants.INFANTRY -> tiles[i][j].imageSource = ImageSources.infantry0;
-                            case GameConstants.MINER -> tiles[i][j].imageSource = ImageSources.miner0;
-                            case GameConstants.HQ -> tiles[i][j].imageSource = ImageSources.HQ0;
-                            case GameConstants.SUPERBOT -> tiles[i][j].imageSource = ImageSources.superBot0;
+                            case GameConstants.SCOUT -> tiles[i][j].updateTile(ImageSources.scout0);
+                            case GameConstants.INFANTRY -> tiles[i][j].updateTile(ImageSources.infantry0);
+                            case GameConstants.MINER -> tiles[i][j].updateTile( ImageSources.miner0);
+                            case GameConstants.HQ -> tiles[i][j].updateTile(ImageSources.HQ0);
+                            case GameConstants.SUPERBOT -> tiles[i][j].updateTile(ImageSources.superBot0);
                         }
                     }
                     else if(team == 2){
                         switch(r.robotType){
                             default -> System.out.println("oops!");
-                            case GameConstants.SCOUT -> tiles[i][j].imageSource = ImageSources.scout1;
-                            case GameConstants.INFANTRY -> tiles[i][j].imageSource = ImageSources.infantry1;
-                            case GameConstants.MINER -> tiles[i][j].imageSource = ImageSources.miner1;
-                            case GameConstants.HQ -> tiles[i][j].imageSource = ImageSources.HQ1;
-                            case GameConstants.SUPERBOT -> tiles[i][j].imageSource = ImageSources.superBot1;
+                            case GameConstants.SCOUT -> tiles[i][j].updateTile(ImageSources.scout1);
+                            case GameConstants.INFANTRY -> tiles[i][j].updateTile( ImageSources.infantry1);
+                            case GameConstants.MINER -> tiles[i][j].updateTile(ImageSources.miner1);
+                            case GameConstants.HQ -> tiles[i][j].updateTile(ImageSources.HQ1);
+                            case GameConstants.SUPERBOT -> tiles[i][j].updateTile(ImageSources.superBot1);
                         }
                     }
                 }
                 else{
                     if(correspondingMapTile.numIron > 0){
-                        tiles[i][j].imageSource = ImageSources.ironNoMine;
+                        tiles[i][j].updateTile(ImageSources.ironNoMine);
                     }
                     else if(correspondingMapTile.numSilicon > 0){
-                        tiles[i][j].imageSource = ImageSources.siliconMine;
+                        tiles[i][j].updateTile(ImageSources.siliconMine);
                     }
                     else{
-                        tiles[i][j].imageSource = ImageSources.ground;
+                        tiles[i][j].updateTile(ImageSources.ground);
                     }
                 }
             }

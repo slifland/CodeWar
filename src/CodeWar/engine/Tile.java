@@ -41,4 +41,10 @@ public class Tile extends StackPane
 
         relocate(row * Client.CELL_SIZE, col * Client.CELL_SIZE);
     }
+
+    public void updateTile(Image imageSourcc)
+    {
+        this.imageSource = imageSourcc;
+        image.setImage(imageSourcc);
+    }
 }
