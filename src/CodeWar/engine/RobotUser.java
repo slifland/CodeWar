@@ -10,11 +10,11 @@ public class RobotUser
     private RobotInfo robotInfo;
     protected RobotInfo spawned;
     GameWorld world;
-    public int health;
-    public int moveCooldown;
-    public int actionCooldown;
-    public int robotType;
-    public Point position;
+    protected int health;
+    protected int moveCooldown;
+    protected int actionCooldown;
+    protected int robotType;
+    protected Point position;
 
     protected RobotUser(RobotInfo assignedRobotInfo, GameWorld gw){
         robotInfo = assignedRobotInfo;
@@ -26,6 +26,13 @@ public class RobotUser
         robotType = robotInfo.robotType;
         position = robotInfo.position;
     }
+
+    //get methods for robot information
+    public int getHealth(){return health;}
+    public int getMoveCooldown(){return moveCooldown;}
+    public int getActionCooldown(){return actionCooldown;}
+    public int getRobotType(){return robotType;}
+    public Point getPosition(){return position;}
 
     //returns if a robot can move
     public boolean canMove(Direction dir){
@@ -201,6 +208,110 @@ public class RobotUser
         return distance_squared <= radius*radius;
     }
 
+    public RobotInfo retrieveRobotAtPoint(Point p){
+        if(p != null && p.distanceSquaredTo(position) <= GameConstants.VISION_RADIUS[robotType]){
+            return p.pointAsMapTile(world).robotInfoOnTile;
+        }
+        else return null;
+    }
+
+    public MapTile retrieveMapTileAtPoint(Point p){
+        if(p != null && p.distanceSquaredTo(position) <= GameConstants.VISION_RADIUS[robotType]){
+            return p.pointAsMapTile(world);
+        }
+        else return null;
+    }
+
+    public ArrayList<MapTile> getNearbyMapTiles(int radiusSquared){
+        ArrayList<MapTile> nearbyTiles = new ArrayList<>();
+        double radius = Math.sqrt(radiusSquared);
+        Point center = position;
+        int top    =  (int)ceil(center.y - radius);
+        int bottom = (int)floor(center.y + radius);
+        int left   =  (int)ceil(center.x - radius);
+        int  right  = (int)floor(center.x + radius);
+
+        for (int y = top; y <= bottom; y++) {
+            for (int x = left; x <= right; x++) {
+                Point temp = new Point(x, y);
+                if (inside_circle(center, temp, radius)) {
+                    MapTile tempTile = temp.pointAsMapTile(world);
+                    nearbyTiles.add(tempTile);
+                }
+            }
+        }
+        return nearbyTiles;
+    }
+
+    //returns the map tile of all nearby iron deposits
+    public ArrayList<MapTile> getNearbyIronDeposits(int radiusSquared){
+        ArrayList<MapTile> nearbyDeposits = new ArrayList<>();
+        double radius = Math.sqrt(radiusSquared);
+        Point center = position;
+        int top    =  (int)ceil(center.y - radius);
+        int bottom = (int)floor(center.y + radius);
+        int left   =  (int)ceil(center.x - radius);
+        int  right  = (int)floor(center.x + radius);
+
+        for (int y = top; y <= bottom; y++) {
+            for (int x = left; x <= right; x++) {
+                Point temp = new Point(x, y);
+                if (inside_circle(center, temp, radius)) {
+                    MapTile tempTile = temp.pointAsMapTile(world);
+                    if(tempTile.numIron != 0) {
+                        nearbyDeposits.add(tempTile);
+                    }
+                }
+            }
+        }
+        return nearbyDeposits;
+    }
+    //returns the map tile of all nearby silicon deposits
+    public ArrayList<MapTile> getNearbySiliconDeposits(int radiusSquared){
+        ArrayList<MapTile> nearbyDeposits = new ArrayList<>();
+        double radius = Math.sqrt(radiusSquared);
+        Point center = position;
+        int top    =  (int)ceil(center.y - radius);
+        int bottom = (int)floor(center.y + radius);
+        int left   =  (int)ceil(center.x - radius);
+        int  right  = (int)floor(center.x + radius);
+
+        for (int y = top; y <= bottom; y++) {
+            for (int x = left; x <= right; x++) {
+                Point temp = new Point(x, y);
+                if (inside_circle(center, temp, radius)) {
+                    MapTile tempTile = temp.pointAsMapTile(world);
+                    if(tempTile.numSilicon != 0) {
+                        nearbyDeposits.add(tempTile);
+                    }
+                }
+            }
+        }
+        return nearbyDeposits;
+    }
+    //returns the map tile of all nearby deposits
+    public ArrayList<MapTile> getNearbyDeposits(int radiusSquared){
+        ArrayList<MapTile> nearbyDeposits = new ArrayList<>();
+        double radius = Math.sqrt(radiusSquared);
+        Point center = position;
+        int top    =  (int)ceil(center.y - radius);
+        int bottom = (int)floor(center.y + radius);
+        int left   =  (int)ceil(center.x - radius);
+        int  right  = (int)floor(center.x + radius);
+
+        for (int y = top; y <= bottom; y++) {
+            for (int x = left; x <= right; x++) {
+                Point temp = new Point(x, y);
+                if (inside_circle(center, temp, radius)) {
+                    MapTile tempTile = temp.pointAsMapTile(world);
+                    if(tempTile.numIron != 0 || tempTile.numSilicon != 0) {
+                        nearbyDeposits.add(tempTile);
+                    }
+                }
+            }
+        }
+        return nearbyDeposits;
+    }
     //returns the robot info of all robots in the radius of sqrt(radiusSquared), belonging to team team, and originating at point center
     public ArrayList<RobotInfo> getNearbyRobots(int radiusSquared, int team, Point center){
         ArrayList<RobotInfo> nearbyRobots = new ArrayList<>();

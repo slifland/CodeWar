@@ -9,7 +9,7 @@ public class Team
     public Team(int team)
     {
         this.team = team;
-        this.numIron = 0;
+        this.numIron = 100;
         this.numSilicon = 0;
     }
 

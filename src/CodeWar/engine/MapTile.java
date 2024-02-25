@@ -3,15 +3,15 @@ package CodeWar.engine;
 
 public class MapTile
 {
-    int numIron;
-    int numSilicon;
-    boolean passable;
+    protected int numIron;
+    protected int numSilicon;
+    protected boolean passable;
     //This value is null if no Robot is present on the tile
-    RobotInfo robotInfoOnTile;
+    protected RobotInfo robotInfoOnTile;
     //location of the tile
-    Point point;
+    protected Point point;
 
-    public MapTile(int numIron, int numSilicon, boolean passable, RobotInfo robotInfoOnTile, Point mapLocation)
+    protected MapTile(int numIron, int numSilicon, boolean passable, RobotInfo robotInfoOnTile, Point mapLocation)
     {
         this.numIron = numIron;
         this.numSilicon = numSilicon;
@@ -20,7 +20,7 @@ public class MapTile
         this.point = mapLocation;
     }
 
-    public MapTile(MapTile other)
+    protected MapTile(MapTile other)
     {
         this.numIron = other.numIron;
         this.numSilicon = other.numSilicon;
@@ -29,11 +29,31 @@ public class MapTile
         this.point = new Point(other.point);
     }
 
-    public MapTile(int x, int y){
+    protected MapTile(int x, int y){
         this.numIron = 0;
         this.numSilicon = 0;
         this.passable = true;
         this.robotInfoOnTile = null;
         this.point = new Point(x, y);
+    }
+
+    public Point getPoint(){
+        return this.point;
+    }
+
+    public int getIron(){
+        return this.numIron;
+    }
+
+    public int getSilicon(){
+        return this.numSilicon;
+    }
+
+    public boolean getPassable(){
+        return this.passable;
+    }
+
+    public RobotInfo getRobotInfoOnTile(){
+        return this.robotInfoOnTile;
     }
 }
