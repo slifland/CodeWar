@@ -188,11 +188,11 @@ public class RobotUser
             case 1:
                 world.teamA.setIron(curIron - reqIron);
                 world.teamA.setSilicon(curSilicon - reqSilicon);
-                spawned = new RobotInfo(robotIndex, 1,p, false, world);
+                spawned = new RobotInfo(robotIndex, 1, p, false, world);
                 break;
             case 2:
                 world.teamB.setIron(curIron - reqIron);
-                world.teamA.setSilicon(curSilicon - reqSilicon);
+                world.teamB.setSilicon(curSilicon - reqSilicon);
                 spawned = new RobotInfo(robotIndex,2, p, false, world);
                 break;
             default:

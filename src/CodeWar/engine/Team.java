@@ -10,7 +10,7 @@ public class Team
     {
         this.team = team;
         this.numIron = 100;
-        this.numSilicon = 0;
+        this.numSilicon = 20;
     }
 
     public Team(Team other)

@@ -27,6 +27,7 @@ public class GameWorld
             {
                 gameWorld[i][j] = new MapTile(0,0,true,null,
                         Point.indexToTile(i,j,this));
+
             }
         }
     }
