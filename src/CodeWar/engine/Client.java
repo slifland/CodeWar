@@ -132,7 +132,7 @@ public class Client extends Application
                             case GameConstants.INFANTRY -> tiles[i][j].imageSource = ImageSources.infantry0;
                             case GameConstants.MINER -> tiles[i][j].imageSource = ImageSources.miner0;
                             case GameConstants.HQ -> tiles[i][j].imageSource = ImageSources.HQ0;
-                            //case GameConstants.SUPERBOT -> tiles[i][j].imageSource = ImageSources.scout0;
+                            case GameConstants.SUPERBOT -> tiles[i][j].imageSource = ImageSources.superBot0;
                         }
                     }
                     else if(team == 2){
@@ -142,7 +142,7 @@ public class Client extends Application
                             case GameConstants.INFANTRY -> tiles[i][j].imageSource = ImageSources.infantry1;
                             case GameConstants.MINER -> tiles[i][j].imageSource = ImageSources.miner1;
                             case GameConstants.HQ -> tiles[i][j].imageSource = ImageSources.HQ1;
-                            //case GameConstants.SUPERBOT -> tiles[i][j].imageSource = ImageSources.scout0;
+                            case GameConstants.SUPERBOT -> tiles[i][j].imageSource = ImageSources.superBot1;
                         }
                     }
                 }

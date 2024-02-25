@@ -16,4 +16,6 @@ public class ImageSources
     public static Image siliconMine = new Image("CodeWar/images/siliconMine.png");
     public static Image HQ0 = new Image("CodeWar/images/HQ.png");
     public static Image HQ1 = new Image("CodeWar/images/HQ1.png");
+    public static Image superBot0 = new Image("CodeWar/images/superBot0.png");
+    public static Image superBot1 = new Image("CodeWar/images/superBot1.png");
 }
