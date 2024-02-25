@@ -30,6 +30,20 @@ public class Runner
         world = new GameWorld(30, 30);
         pastTurns = new GameWorld[GameConstants.MAX_TURN_COUNT];
         robotPlayers = new ArrayList<>();
+        for(int i = 0; i < world.sizeX; i++){
+            for(int k = 0; k < world.sizeY; k++){
+                if(world.gameWorld[i][k].robotInfoOnTile.robotType == GameConstants.HQ){
+                    switch(world.gameWorld[i][k].robotInfoOnTile.playerOwner){
+                        case 1:
+                            robotPlayers.add(new RobotPlayer(world.gameWorld[i][k].robotInfoOnTile, new Player1(1)));
+                            break;
+                        case 2:
+                            robotPlayers.add(new RobotPlayer(world.gameWorld[i][k].robotInfoOnTile, new Player2(2)));
+                            break;
+                    }
+                }
+            }
+        }
         toAdd = new ArrayList<>();
         toRemove = new ArrayList<>();
         //client = new Client(this);

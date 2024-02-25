@@ -76,7 +76,7 @@ public class Point
     }
     public static Point indexToTile(int row, int col, GameWorld gw)
     {
-        return new Point(col, gw.sizeY - row - 1);
+        return new Point(gw.sizeY - row - 1, col);
     }
 
     public int distanceSquaredTo(Point p) {
