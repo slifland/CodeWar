@@ -86,6 +86,16 @@ public class Client extends Application
         {
             runner.update();
         }
+        if(runner.champion != 0){
+            System.out.println("Winner is Player " + runner.champion);
+        }
+        else{
+            if(gameWorld.teamA.getIron() > gameWorld.teamB.getIron())   System.out.println("Winner is Player A");
+            else if(gameWorld.teamB.getSilicon() > gameWorld.teamA.getIron()) System.out.println("Winner is Player B");
+            else if(gameWorld.teamA.getIron() > gameWorld.teamB.getSilicon())   System.out.println("Winner is Player A");
+            else if(gameWorld.teamB.getSilicon() > gameWorld.teamA.getSilicon()) System.out.println("Winner is Player B");
+            else System.out.println("Tie!");
+        }
 
         finishedGame = runner.pastTurns;
 

@@ -36,4 +36,7 @@ public class Player1 extends Player
     public int getID(){
         return 1;
     }
+    public int otherTeam(){
+        return 2;
+    }
 }

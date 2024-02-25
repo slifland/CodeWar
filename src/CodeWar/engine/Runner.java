@@ -17,6 +17,8 @@ public class Runner
     GameWorld world;
     protected List<GameWorld> pastTurns;
 
+    protected int champion = 0;
+
 
 
     //list of all of the robots
@@ -89,6 +91,17 @@ public class Runner
         //these should already be removed from the map
         for(RobotPlayer robotPlayer : toRemove){
             robotPlayers.remove(robotPlayer);
+            if(robotPlayer.getRobot().robotType == GameConstants.HQ){
+                int toElim = robotPlayer.getRobot().playerOwner;
+                for(RobotPlayer rP : robotPlayers){
+                    if(rP.getRobot().robotType == GameConstants.HQ && rP.getRobot().playerOwner == toElim){
+                        champion = -1;
+                        break;
+                    }
+                }
+                if(champion == -1) champion = 0;
+                else champion = (toElim == 1) ? 2 : 1;
+            }
         }
         //these should already be added to the map
         robotPlayers.addAll(toAdd);
@@ -100,7 +113,7 @@ public class Runner
 
     //returns whether the current game is active
     protected boolean active(){
-        return turn < GameConstants.MAX_TURN_COUNT;
+        return champion == 0 && turn < GameConstants.MAX_TURN_COUNT;
     }
 
     public int getSize(){

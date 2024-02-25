@@ -10,4 +10,5 @@ public abstract class Player
     }
     public abstract void run(RobotUser user);
     public abstract int getID();
+    public abstract int otherTeam();
 }

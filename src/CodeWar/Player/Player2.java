@@ -27,7 +27,7 @@ public class Player2 extends Player
                 if (dir != Direction.NONE) {
                     if (user.canMove(dir)) user.move(dir);
                 }
-                ArrayList<RobotInfo> nearbyEnemies = user.getNearbyRobots(GameConstants.VISION_RADIUS[user.getRobotType()], 1);
+                ArrayList<RobotInfo> nearbyEnemies = user.getNearbyRobots(GameConstants.VISION_RADIUS[user.getRobotType()], getID());
                 for (RobotInfo enemy : nearbyEnemies) {
                     if (user.canAttack(enemy.getPosition())) {
                         user.attack(enemy.getPosition());
@@ -67,5 +67,8 @@ public class Player2 extends Player
     }
     public int getID(){
         return 2;
+    }
+    public int otherTeam(){
+        return 1;
     }
 }
