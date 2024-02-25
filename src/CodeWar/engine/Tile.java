@@ -26,7 +26,7 @@ public class Tile extends StackPane
             imageSource = ImageSources.ground;
         }else
         {
-            imageSource = new Image("CodeWar/images/scifiTile_02.png");
+            imageSource = ImageSources.mountains;
         }
 
         image = new ImageView();

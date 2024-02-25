@@ -4,6 +4,7 @@ import CodeWar.Player.*;
 import CodeWar.engine.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Runner
 {
@@ -14,7 +15,7 @@ public class Runner
     protected int turn;
 
     GameWorld world;
-    protected GameWorld[] pastTurns;
+    protected List<GameWorld> pastTurns;
 
 
 
@@ -28,7 +29,7 @@ public class Runner
     //instantiates a runner object
     protected Runner(){
         world = new GameWorld(30, 30);
-        pastTurns = new GameWorld[GameConstants.MAX_TURN_COUNT];
+        pastTurns = new ArrayList<>();
         robotPlayers = new ArrayList<>();
         for(int i = 0; i < world.sizeX; i++){
             for(int k = 0; k < world.sizeY; k++){
@@ -90,7 +91,7 @@ public class Runner
         }
         //these should already be added to the map
         robotPlayers.addAll(toAdd);
-        pastTurns[turn] = new GameWorld(world);
+        pastTurns.add(new GameWorld(world));
         turn++;
     }
 
