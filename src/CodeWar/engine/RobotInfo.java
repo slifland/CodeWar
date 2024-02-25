@@ -17,9 +17,10 @@ public class RobotInfo
     protected boolean isBuilding;
 
 
-    protected RobotInfo(int robotType, Point position, boolean isBuilding, GameWorld gameWorld)
+    protected RobotInfo(int robotType, int playerOwner, Point position, boolean isBuilding, GameWorld gameWorld)
     {
         this.robotType = robotType;
+        this.playerOwner = playerOwner;
         this.health = GameConstants.HEALTH[robotType];
         this.attack = GameConstants.ATTACK[robotType];
         this.siliconCost = GameConstants.SILICON_COST[robotType];
@@ -35,6 +36,7 @@ public class RobotInfo
     {
         if(other == null)
         {
+            this.playerOwner = -1;
             this.robotType = -1;
             this.health = -1;
             this.attack = -1;
@@ -47,6 +49,7 @@ public class RobotInfo
             this.isBuilding = false;
             return;
         }
+        this.playerOwner = other.playerOwner;
         this.robotType = other.robotType;
         this.health = other.health;
         this.attack = other.attack;

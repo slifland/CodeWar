@@ -28,7 +28,7 @@ public class Runner
 
     //instantiates a runner object
     protected Runner(){
-        world = new GameWorld(30, 30);
+        MapGenerator.generateGameWorld(this);
         pastTurns = new ArrayList<>();
         robotPlayers = new ArrayList<>();
         for(int i = 0; i < world.sizeX; i++){

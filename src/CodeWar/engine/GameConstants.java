@@ -22,6 +22,8 @@ public class GameConstants
     public static final int MAX_TURN_COUNT = 2000;
     public static final int MINE_AMOUNT = 5;
 
+    public static final int MAP_SIZE = 30;
+
 
 
 }

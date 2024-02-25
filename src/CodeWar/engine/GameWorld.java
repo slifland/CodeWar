@@ -68,7 +68,7 @@ public class GameWorld
                                 point);
                     }
                     else if(lines[index].equals("1")){
-                        gameWorld[i][j] = new MapTile(0,0,false, new RobotInfo(GameConstants.HQ, point, true, this),
+                        gameWorld[i][j] = new MapTile(0,0,false, new RobotInfo(GameConstants.HQ, 1, point, true, this),
                                 point);
                     }
                     else if(lines[index].contains("i")){

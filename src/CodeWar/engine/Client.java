@@ -1,5 +1,7 @@
 package CodeWar.engine;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -69,6 +71,40 @@ public class Client extends Application
                 tileGroup.getChildren().add(tiles[i][j]);
             }
         }
+
+
+        while(runner.active())
+        {
+            runner.update();
+        }
+
+        finishedGame = runner.pastTurns;
+
+        Slider turnSlider = new Slider();
+        turnSlider.setMin(0);
+        turnSlider.setMax(finishedGame.size());
+        turnSlider.setMinWidth(750);
+
+        Text turnText = new Text("Turn: " + (int) turnSlider.getValue());
+        turnText.setFont(Font.font("Verdana", 20));
+        turnText.relocate(160, 760);
+        root.getChildren().add(turnText);
+
+        root.getChildren().add(turnSlider);
+        turnSlider.relocate(270,765);
+
+        turnSlider.valueProperty().addListener(
+                new ChangeListener<Number>() {
+
+                    public void changed(ObservableValue<? extends Number >
+                                                observable, Number oldValue, Number newValue)
+                    {
+                        turnText.setText("Turn: " + newValue.intValue());
+                        showTurn(finishedGame.get(newValue.intValue()));
+                    }
+                });
+
+
         return root;
     }
     @Override
@@ -128,10 +164,6 @@ public class Client extends Application
     public static void main(String[] args)
     {
         launch();
-        //Client client = new Client(runner);
-        /*while(runner.active()){
-            runner.update();
-        }*/
     }
 }
 
