@@ -63,6 +63,7 @@ public class Runner
                     robotPlayer.getRobot().cooldownMove = Math.max(robotPlayer.getRobot().cooldownMove, 0);
                 }
                 catch(Exception e){
+                    e.printStackTrace();
                     System.out.println("hi!");
                     toRemove.add(robotPlayer);
                 }
@@ -97,7 +98,6 @@ public class Runner
 
     //returns whether the current game is active
     protected boolean active(){
-        System.out.println(turn);
         return turn < GameConstants.MAX_TURN_COUNT;
     }
 

@@ -236,6 +236,7 @@ public class RobotUser
         for (int y = top; y <= bottom; y++) {
             for (int x = left; x <= right; x++) {
                 Point temp = new Point(x, y);
+                if(!onMap(temp)) continue;
                 if (inside_circle(center, temp, radius)) {
                     MapTile tempTile = temp.pointAsMapTile(world);
                     nearbyTiles.add(tempTile);
@@ -258,6 +259,7 @@ public class RobotUser
         for (int y = top; y <= bottom; y++) {
             for (int x = left; x <= right; x++) {
                 Point temp = new Point(x, y);
+                if(!onMap(temp)) continue;
                 if (inside_circle(center, temp, radius)) {
                     MapTile tempTile = temp.pointAsMapTile(world);
                     if(tempTile.numIron != 0) {
@@ -281,6 +283,7 @@ public class RobotUser
         for (int y = top; y <= bottom; y++) {
             for (int x = left; x <= right; x++) {
                 Point temp = new Point(x, y);
+                if(!onMap(temp)) continue;
                 if (inside_circle(center, temp, radius)) {
                     MapTile tempTile = temp.pointAsMapTile(world);
                     if(tempTile.numSilicon != 0) {
@@ -304,6 +307,7 @@ public class RobotUser
         for (int y = top; y <= bottom; y++) {
             for (int x = left; x <= right; x++) {
                 Point temp = new Point(x, y);
+                if(!onMap(temp)) continue;
                 if (inside_circle(center, temp, radius)) {
                     MapTile tempTile = temp.pointAsMapTile(world);
                     if(tempTile.numIron != 0 || tempTile.numSilicon != 0) {
@@ -326,6 +330,7 @@ public class RobotUser
         for (int y = top; y <= bottom; y++) {
             for (int x = left; x <= right; x++) {
                 Point temp = new Point(x, y);
+                if(!onMap(temp)) continue;
                 if (inside_circle(center, temp, radius)) {
                     MapTile tempTile = temp.pointAsMapTile(world);
                     if(tempTile.robotInfoOnTile != null && tempTile.robotInfoOnTile.playerOwner == team) {
@@ -350,6 +355,7 @@ public class RobotUser
         for (int y = top; y <= bottom; y++) {
             for (int x = left; x <= right; x++) {
                 Point temp = new Point(x, y);
+                if(!onMap(temp)) continue;
                 if (inside_circle(center, temp, radius)) {
                     MapTile tempTile = temp.pointAsMapTile(world);
                     if(tempTile.robotInfoOnTile != null && tempTile.robotInfoOnTile.playerOwner == team) {
@@ -374,6 +380,7 @@ public class RobotUser
         for (int y = top; y <= bottom; y++) {
             for (int x = left; x <= right; x++) {
                 Point temp = new Point(x, y);
+                if(!onMap(temp)) continue;
                 if (inside_circle(center, temp, radius)) {
                     MapTile tempTile = temp.pointAsMapTile(world);
                     if(tempTile.robotInfoOnTile != null) {

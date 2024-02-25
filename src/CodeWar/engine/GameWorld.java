@@ -68,8 +68,14 @@ public class GameWorld
                                 point);
                     }
                     else if(lines[index].equals("1")){
-                        gameWorld[i][j] = new MapTile(0,0,false, new RobotInfo(GameConstants.HQ, 1, point, true, this),
-                                point);
+                        if(lines[index+1].contains("a")){
+                            gameWorld[i][j] = new MapTile(0,0,false, new RobotInfo(GameConstants.HQ, 1, point, true, this),
+                                    point);
+                        }
+                        else{
+                            gameWorld[i][j] = new MapTile(0,0,false, new RobotInfo(GameConstants.HQ, 2, point, true, this),
+                                    point);
+                        }
                     }
                     else if(lines[index].contains("i")){
                         gameWorld[i][j] = new MapTile(Integer.parseInt(lines[index].split("i")[0]),0,false, null,
@@ -99,7 +105,15 @@ public class GameWorld
             for(int j = 0; j < gameWorld[i].length;j++)
             {
                 if(!gameWorld[i][j].passable) toSend += "0";
-                else if(gameWorld[i][j].robotInfoOnTile != null && gameWorld[i][j].robotInfoOnTile.robotType == GameConstants.HQ) toSend += "1";
+                else if(gameWorld[i][j].robotInfoOnTile != null && gameWorld[i][j].robotInfoOnTile.robotType == GameConstants.HQ){
+                    toSend += "1";
+                    if(gameWorld[i][j].robotInfoOnTile.playerOwner == 1){
+                        toSend += "a";
+                    }
+                    else{
+                        toSend += "b";
+                    }
+                }
                 else if(gameWorld[i][j].numIron != 0 || gameWorld[i][j].numSilicon != 0){
                     if(gameWorld[i][j].numIron != 0) toSend += "i" + gameWorld[i][j].numIron;
                     else toSend += "s" + gameWorld[i][j].numSilicon;

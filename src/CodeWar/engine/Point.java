@@ -72,7 +72,7 @@ public class Point
         };
     }
     public MapTile pointAsMapTile(GameWorld gw){
-        return gw.gameWorld[x][gw.sizeY - y - 1];
+        return gw.gameWorld[gw.sizeY - y - 1][x];
     }
     public static Point indexToTile(int row, int col, GameWorld gw)
     {
