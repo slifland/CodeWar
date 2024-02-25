@@ -5,6 +5,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
@@ -66,6 +67,16 @@ public class Client extends Application
         root.getChildren().add(siliconTrackerTeam1);
         root.getChildren().add(siliconTrackerTeam2);
 
+        Label winnerLabel = new Label("test");
+        winnerLabel.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, 25));
+        winnerLabel.relocate(15,300);
+        root.getChildren().add(winnerLabel);
+
+        Button playButton = new Button("Play");
+        playButton.relocate(120,800);
+        root.getChildren().add(playButton);
+
+
 
 
         for(int i = 0; i < size; i++)
@@ -87,13 +98,13 @@ public class Client extends Application
             runner.update();
         }
         if(runner.champion != 0){
-            System.out.println("Winner is Player " + runner.champion);
+            winnerLabel.setText("Winner is Player " + runner.champion);
         }
         else{
-            if(gameWorld.teamA.getIron() > gameWorld.teamB.getIron())   System.out.println("Winner is Player A");
-            else if(gameWorld.teamB.getSilicon() > gameWorld.teamA.getIron()) System.out.println("Winner is Player B");
-            else if(gameWorld.teamA.getIron() > gameWorld.teamB.getSilicon())   System.out.println("Winner is Player A");
-            else if(gameWorld.teamB.getSilicon() > gameWorld.teamA.getSilicon()) System.out.println("Winner is Player B");
+            if(gameWorld.teamA.getIron() > gameWorld.teamB.getIron())  winnerLabel.setText("Winner is Player A \n(on tiebreakers, \nmore Iron)");
+            else if(gameWorld.teamB.getSilicon() > gameWorld.teamA.getIron()) winnerLabel.setText("Winner is Player B \n(on tiebreakers, \nmore Silicon)");
+            else if(gameWorld.teamA.getIron() > gameWorld.teamB.getSilicon())   winnerLabel.setText("Winner is Player A \n(on tiebreakers, \nmore Iron)");
+            else if(gameWorld.teamB.getSilicon() > gameWorld.teamA.getSilicon()) winnerLabel.setText("Winner is Player B \n(on tiebreakers, \nmore Silicon)");
             else System.out.println("Tie!");
         }
 
@@ -131,7 +142,6 @@ public class Client extends Application
     }
 
     public void showTurn(GameWorld gw){
-        int numScouts = 0;
         ironTrackerTeam1.setText("Team 1 Iron: " + gw.teamA.getIron());
         siliconTrackerTeam1.setText("Team 1 Silicon: " + gw.teamA.getSilicon());
         ironTrackerTeam2.setText("Team 2 Iron: " + gw.teamB.getIron());
